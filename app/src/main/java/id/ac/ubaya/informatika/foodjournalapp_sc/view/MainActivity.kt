@@ -1,7 +1,8 @@
-package id.ac.ubaya.informatika.foodjournalapp_sc
+package id.ac.ubaya.informatika.foodjournalapp_sc.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import id.ac.ubaya.informatika.foodjournalapp_sc.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
