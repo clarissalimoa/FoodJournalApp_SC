@@ -14,14 +14,10 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE uuid= :id")
     suspend fun selectUser(id:Int): User
 
-    @Query("UPDATE user SET title=:title, notes=:notes, priority=:priority" +
-            " WHERE uuid = :id")
-    suspend fun update(title:String, notes:String, priority:Int, id:Int)
-
-    @Query("UPDATE user SET is_done=1" +
-            " WHERE uuid = :id")
-    suspend fun done(id:Int)
-
+//    @Query("UPDATE user SET name=:name, age=:age, gender=:gender, " +
+//            " height=:height, weight=:weight, goal=:goal, bmr:=bmr" +
+//            " WHERE uuid = :id")
+//    suspend fun update(id:Int, name:String, age:Int, gender:String, height:Int, weight:Int, goal:String, bmr:Double)
 
     @Delete
     suspend fun deleteUser(user:User)
