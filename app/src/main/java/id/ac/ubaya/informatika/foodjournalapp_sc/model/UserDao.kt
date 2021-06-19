@@ -8,11 +8,8 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg user:User)
 
-    @Query("SELECT * FROM user ORDER BY priority DESC")
+    @Query("SELECT * FROM user")
     suspend fun selectAllUser(): List<User>
-
-    @Query("SELECT * FROM user WHERE is_done=0 ORDER BY priority DESC")
-    suspend fun selectAllUndoneUser(): List<User>
 
     @Query("SELECT * FROM user WHERE uuid= :id")
     suspend fun selectUser(id:Int): User
