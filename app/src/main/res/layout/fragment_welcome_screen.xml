@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:fontFamily="@font/acme"
+            android:fontFamily="@font/karla_bold"
             android:text="Welcome!"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -168,6 +168,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
                 <RadioGroup
+                    android:id="@+id/radioGroupGoals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -180,18 +181,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:tag="maintain"
                         android:text="Maintain Weight" />
 
                     <RadioButton
                         android:id="@+id/rbGain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:tag="gain"
                         android:text="Gain Weight" />
 
                     <RadioButton
                         android:id="@+id/rbLose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:tag="lose"
                         android:text="Lose Weight" />
                 </RadioGroup>
 

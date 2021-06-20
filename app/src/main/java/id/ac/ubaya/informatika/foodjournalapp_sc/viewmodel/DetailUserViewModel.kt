@@ -13,40 +13,41 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+
 class DetailUserViewModel(application: Application)
     :AndroidViewModel(application), CoroutineScope {
+    private val job = Job()
+    val userLD = MutableLiveData<User>()
 
-    val userLD = MutableLiveData<List<User>>()
-    val userLoadErrorLD = MutableLiveData<Boolean>()
-    val loadingLD = MutableLiveData<Boolean>()
-    private var job = Job()
-
-    fun refresh() {
-        loadingLD.value = true
-        userLoadErrorLD.value = false
-        launch {
-//            val db = buildDb(getApplication())
-//            userLD.value = db.userDao().selectAllUndoneUser()
-        }
-    }
-
-    fun clearTask(user: User) {
+    fun addUser(list: List<User>) {
         launch {
             val db = buildDb(getApplication())
-//            db.userDao().deleteUser(user)
-//            userLD.value = db.userDao().selectAllUndoneUser()
-        }
-    }
-
-    fun done(user: User) {
-        launch {
-            val db = buildDb(getApplication())
-//            db.userDao().done(user.uuid)
-//            userLD.value = db.userDao().selectAllUndoneUser()
+            db.userDao().insertAll(*list.toTypedArray())
         }
     }
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
+
+    fun fetch(uuid: Int) {
+        launch {
+            val db = buildDb(getApplication())
+            userLD.value = db.userDao().selectUser(uuid)
+        }
+    }
+
+//    fun update(title:String, notes:String, priority:Int, uuid:Int) {
+//        launch {
+//            val db = buildDb(getApplication())
+//            db.userDao().update(title, notes, priority, uuid)
+//        }
+//    }
+
+//    fun update(user:User) {
+//        launch {
+//            val db = buildDb(getApplication())
+//            db.userDao().update(user.title, user.notes, user.priority, user.uuid)
+//        }
+//    }
 
 }

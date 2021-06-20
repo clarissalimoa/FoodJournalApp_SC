@@ -9,5 +9,21 @@
         android:id="@+id/welcomeScreenFragment"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.WelcomeScreenFragment"
         android:label="fragment_welcome_screen"
-        tools:layout="@layout/fragment_welcome_screen" />
+        tools:layout="@layout/fragment_welcome_screen" >
+        <action
+            android:id="@+id/actionWelcomeToLog"
+            app:destination="@id/foodLogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logMealFragment"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
+        android:label="LogMealFragment" />
+    <fragment
+        android:id="@+id/foodJournalFragment"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodJournalFragment"
+        android:label="FoodJournalFragment" />
+    <fragment
+        android:id="@+id/foodLogFragment"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodLogFragment"
+        android:label="FoodLogFragment" />
 </navigation>
