@@ -8,25 +8,34 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
+import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentFoodLogBinding
+import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentWelcomeScreenBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
 import kotlinx.android.synthetic.main.fragment_welcome_screen.*
 import kotlin.math.roundToInt
 
 
-class WelcomeScreenFragment : Fragment() {
+class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
 
     private lateinit var viewModel:DetailUserViewModel
+    private lateinit var dataBinding: FragmentWelcomeScreenBinding
+    private lateinit var user: User
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_welcome_screen, container, false)
+//        return inflater.inflate(R.layout.fragment_welcome_screen, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_log, container, false)
+        return dataBinding.root
     }
 
     override fun onResume() {
@@ -39,6 +48,12 @@ class WelcomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
+        observeViewModel()
+
+        dataBinding.listener = this
+
+
+
         btStart.setOnClickListener {
             val radio = view.findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
             val name = txtName.text.toString()
@@ -64,7 +79,21 @@ class WelcomeScreenFragment : Fragment() {
             val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
             Navigation.findNavController(it).navigate(action)
         }
+    }
 
+    fun observeViewModel() {
+        viewModel.userLD.observe(viewLifecycleOwner, Observer {
+            user = it
+            if(user!=null){
+                val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
+//                Navigation.findNavController().navigate(action)
+            }
+        })
+    }
+
+    override fun UserSaveWelcomeChanges(v: View, obj: User) {
+        viewModel.addUser(listOf(obj))
+        Toast.makeText(v.context, "Todo Updated", Toast.LENGTH_SHORT).show()
     }
 
 }
