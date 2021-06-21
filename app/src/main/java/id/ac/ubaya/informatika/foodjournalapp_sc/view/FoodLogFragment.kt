@@ -22,7 +22,7 @@ class FoodLogFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_food_log, container, false)
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_food_log, container, false)
+        dataBinding = DataBindingUtil.inflate<FragmentFoodLogBinding>(inflater, R.layout.fragment_food_log, container, false)
         return dataBinding.root
     }
 
@@ -39,10 +39,10 @@ class FoodLogFragment : Fragment() {
         viewModel.userLD.observe(viewLifecycleOwner, Observer {
             dataBinding.user = it
             //Total dari foodlog hari ini
-            dataBinding.caloriesToday = it.caloriesTarget //masih salah
-            dataBinding.statToday = if(dataBinding.caloriesToday <= 0.5*it.caloriesTarget) "LOW"
-            else if(dataBinding.caloriesToday > 0.5*it.caloriesTarget && dataBinding.caloriesToday <= it.caloriesTarget) "NORMAL"
-            else "EXCEED"
+          //  dataBinding.caloriesToday = it.caloriesTarget //masih salah | Mo ini error jadi ku comment du
+          // dataBinding.statToday = if(dataBinding.caloriesToday <= 0.5*it.caloriesTarget) "LOW"
+          // else if(dataBinding.caloriesToday > 0.5*it.caloriesTarget && dataBinding.caloriesToday <= it.caloriesTarget) "NORMAL"
+          // else "EXCEED"
         })
     }
 

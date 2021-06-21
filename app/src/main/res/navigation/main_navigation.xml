@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/itemFoodlog">
+    app:startDestination="@id/itemFoodLog">
 
     <fragment
         android:id="@+id/welcomeScreenFragment"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.WelcomeScreenFragment"
         android:label="Welcome"
-        tools:layout="@layout/fragment_welcome_screen">
-        <action
-            android:id="@+id/actionWelcomeToLog"
-            app:destination="@id/itemFoodlog" />
-    </fragment>
+        tools:layout="@layout/fragment_welcome_screen"/>
     <fragment
-        android:id="@+id/logMealFragment"
+        android:id="@+id/ItemLogAMeal"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
-        android:label="LogMealFragment" />
+        android:label="Log A Meal" />
     <fragment
-        android:id="@+id/foodJournalFragment"
+        android:id="@+id/ItemReport"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodJournalFragment"
-        android:label="FoodJournalFragment" />
+        android:label="Report" />
     <fragment
-        android:id="@+id/itemFoodlog"
+        android:id="@+id/itemFoodLog"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodLogFragment"
-        android:label="Food Log" />
+        android:label="Food Log" >
+        <action
+            android:id="@+id/action_itemFoodLog_to_ItemLogAMeal"
+            app:destination="@id/ItemLogAMeal" />
+    </fragment>
 </navigation>

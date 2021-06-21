@@ -27,8 +27,6 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
     private lateinit var dataBinding: FragmentWelcomeScreenBinding
     private lateinit var user: User
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,8 +74,8 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
 //            Navigation.findNavController(it).popBackStack()
 
             //Pindah fragment with navigation
-            val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
-            Navigation.findNavController(it).navigate(action)
+           // val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
+           // Navigation.findNavController(it).navigate(action)
         }
     }
 
@@ -85,7 +83,7 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
         viewModel.userLD.observe(viewLifecycleOwner, Observer {
             user = it
             if(user!=null){
-                val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
+              //  val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
 //                Navigation.findNavController().navigate(action)
             }
         })

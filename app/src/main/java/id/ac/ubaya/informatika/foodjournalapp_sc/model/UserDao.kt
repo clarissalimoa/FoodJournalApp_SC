@@ -17,6 +17,9 @@ interface UserDao {
     @Query("SELECT * FROM user LIMIT 1")
     suspend fun selectCurrentUser(): User
 
+    @Query("SELECT COUNT(*) FROM user ")
+    suspend fun selectJumlah():Int
+
 //    @Query("UPDATE user SET name=:name, age=:age, gender=:gender, " +
 //            " height=:height, weight=:weight, goal=:goal, bmr:=bmr, caloriesTarget:=caloriesTarget" +
 //            " WHERE uuid = :id")

@@ -18,6 +18,7 @@ class DetailUserViewModel(application: Application)
     :AndroidViewModel(application), CoroutineScope {
     private val job = Job()
     val userLD = MutableLiveData<User>()
+    var jml = 0;
 
     fun addUser(list: List<User>) {
         launch {
@@ -40,6 +41,13 @@ class DetailUserViewModel(application: Application)
         launch {
             val db = buildDb(getApplication())
             userLD.value = db.userDao().selectCurrentUser()
+        }
+    }
+
+    fun jumlah(){
+        launch {
+            val db = buildDb(getApplication())
+           jml = db.userDao().selectJumlah()
         }
     }
 

@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -15,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navController = Navigation.findNavController(this, R.id.hostFragment)
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-//        NavigationUI.setupWithNavController(navView, navController)
-//        bottomNav.setupWithNavController(navController)
+        bottomNav.setupWithNavController(navController)
 
     }
 
