@@ -36,6 +36,13 @@ class DetailUserViewModel(application: Application)
         }
     }
 
+    fun fetchCurrentUser() {
+        launch {
+            val db = buildDb(getApplication())
+            userLD.value = db.userDao().selectCurrentUser()
+        }
+    }
+
 //    fun update(title:String, notes:String, priority:Int, uuid:Int) {
 //        launch {
 //            val db = buildDb(getApplication())

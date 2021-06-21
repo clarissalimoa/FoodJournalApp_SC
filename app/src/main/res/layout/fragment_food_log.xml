@@ -6,7 +6,7 @@
     <data>
         <variable name="user" type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
         <variable name="caloriesToday" type="Integer" />
-        <variable name="statusToday" type="String" />
+        <variable name="statToday" type="String" />
     </data>
 
 <FrameLayout

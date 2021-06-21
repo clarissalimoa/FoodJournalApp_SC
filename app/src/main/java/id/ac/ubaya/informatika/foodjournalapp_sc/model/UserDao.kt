@@ -14,6 +14,9 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE uuid= :id")
     suspend fun selectUser(id:Int): User
 
+    @Query("SELECT * FROM user LIMIT 1")
+    suspend fun selectCurrentUser(): User
+
 //    @Query("UPDATE user SET name=:name, age=:age, gender=:gender, " +
 //            " height=:height, weight=:weight, goal=:goal, bmr:=bmr, caloriesTarget:=caloriesTarget" +
 //            " WHERE uuid = :id")
