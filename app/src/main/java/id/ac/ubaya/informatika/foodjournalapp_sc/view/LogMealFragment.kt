@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
+import id.ac.ubaya.informatika.foodjournalapp_sc.model.FoodHistory
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailFoodViewModel
 import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
@@ -36,9 +37,9 @@ class LogMealFragment : Fragment() {
         buttonFLLog.setOnClickListener {
             val sdf = SimpleDateFormat("dd/MMMM/yyyy")
             val currentDate = sdf.format(Date())
-            var makanan = Food(txtFLName.text.toString(), txtFLKalori.text.toString(),currentDate)
+            var makanan = FoodHistory(txtFLName.text.toString(), txtFLKalori.text.toString(),currentDate)
             val list = listOf(makanan)
-            viewModel.addFood(list)
+           // viewModel.addFood(list)
             Toast.makeText(view.context, "Food added", Toast.LENGTH_LONG).show()
             Navigation.findNavController(it).popBackStack() // cara destroy dan back
         }

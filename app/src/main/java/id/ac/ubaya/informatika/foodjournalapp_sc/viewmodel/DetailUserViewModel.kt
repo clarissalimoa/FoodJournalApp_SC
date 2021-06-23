@@ -7,13 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
-import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb1
+import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
-
 
 class DetailUserViewModel(application: Application)
     :AndroidViewModel(application), CoroutineScope {
@@ -23,7 +22,7 @@ class DetailUserViewModel(application: Application)
 
     fun addUser(list:List<User>) {
         launch {
-            val db = buildDb1(getApplication())
+            val db = buildDb(getApplication())
             db.userDao().insertAll(*list.toTypedArray())
         }
     }
@@ -33,28 +32,28 @@ class DetailUserViewModel(application: Application)
 
     fun fetch(uuid: Int) {
         launch {
-            val db = buildDb1(getApplication())
+            val db = buildDb(getApplication())
             userLD.value = db.userDao().selectUser(uuid)
         }
     }
 
     fun fetch() {
         launch {
-            val db = buildDb1(getApplication())
+            val db = buildDb(getApplication())
             val list = db.userDao().selectAllUser()
         }
     }
 
     fun fetchCurrentUser() {
         launch {
-            val db = buildDb1(getApplication())
+            val db = buildDb(getApplication())
             userLD.value = db.userDao().selectCurrentUser()
         }
     }
 
     fun jumlah1(){
         launch {
-            val db = buildDb1(getApplication())
+            val db = buildDb(getApplication())
            jml = db.userDao().selectJumlah()
         }
     }

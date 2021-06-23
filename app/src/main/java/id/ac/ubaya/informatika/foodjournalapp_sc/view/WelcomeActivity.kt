@@ -7,10 +7,13 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
+import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.ActivityWelcomeBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentWelcomeScreenBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.UserDao
@@ -20,6 +23,7 @@ import kotlin.math.roundToInt
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var viewModel: DetailUserViewModel
+    private lateinit var dataBinding: ActivityWelcomeBinding
 
     override fun onResume() {
         super.onResume()
