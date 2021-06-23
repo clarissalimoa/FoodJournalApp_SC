@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="listener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.UserSaveWelcomeChangesListener" />
+        <variable name="listener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.UserSaveWelcomeChangesListener"/>
     </data>
     <FrameLayout
     android:layout_width="match_parent"

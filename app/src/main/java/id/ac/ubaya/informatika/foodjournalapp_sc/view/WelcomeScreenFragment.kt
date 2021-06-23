@@ -50,33 +50,6 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
 
         dataBinding.listener = this
 
-
-
-        btStart.setOnClickListener {
-            val radio = view.findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
-            val name = txtName.text.toString()
-            val age = txtAge.text.toString().toInt()
-            val height = txtHeight.text.toString().toDouble()
-            val weight = txtWeight.text.toString().toDouble()
-            var bmr:Double = if(txtGender.text.toString()=="male") 13397*weight + 4799*height - 5677*age + 88362 else 9247*weight + 3098*height - 4330*age + 447593
-            var target:Int = if(radio.getTag().toString()=="maintain") bmr.roundToInt()
-            else if(radio.getTag().toString()=="gain") (bmr*115/100).roundToInt()
-            else if(radio.getTag().toString()=="lose") (bmr*85/100).roundToInt()
-            else 0
-
-            var user = User(txtName.text.toString(), age, txtGender.text.toString(),
-                    txtHeight.text.toString().toInt(),txtWeight.text.toString().toInt(),
-                    radio.getTag().toString(), bmr, target)
-            val list = listOf(user)
-            viewModel.addUser(list)
-            Toast.makeText(view.context, "Let's get start!", Toast.LENGTH_LONG).show()
-            //
-//            Navigation.findNavController(it).popBackStack()
-
-            //Pindah fragment with navigation
-           // val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
-           // Navigation.findNavController(it).navigate(action)
-        }
     }
 
     fun observeViewModel() {
@@ -90,8 +63,27 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
     }
 
     override fun UserSaveWelcomeChanges(v: View, obj: User) {
-       // viewModel.addUser(listOf(obj))
-        Toast.makeText(v.context, "Todo Updated", Toast.LENGTH_SHORT).show()
+        val radio = v.findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
+        val name = txtName.text.toString()
+        val age = txtAge.text.toString().toInt()
+        val height = txtHeight.text.toString().toDouble()
+        val weight = txtWeight.text.toString().toDouble()
+        var bmr:Double = if(txtGender.text.toString()=="male") 13397*weight + 4799*height - 5677*age + 88362 else 9247*weight + 3098*height - 4330*age + 447593
+        var target:Int = if(radio.getTag().toString()=="maintain") bmr.roundToInt()
+        else if(radio.getTag().toString()=="gain") (bmr*115/100).roundToInt()
+        else if(radio.getTag().toString()=="lose") (bmr*85/100).roundToInt()
+        else 0
+
+        var user = User(txtName.text.toString(), age, txtGender.text.toString(),
+                txtHeight.text.toString().toInt(),txtWeight.text.toString().toInt(),
+                radio.getTag().toString(), bmr, target)
+        val list = listOf(user)
+        viewModel.addUser(list)
+        Toast.makeText(v.context, "Let's get start!", Toast.LENGTH_LONG).show()
+
+        //Pindah fragment with navigation
+         val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
+         Navigation.findNavController(v).navigate(action)
     }
 
 }
