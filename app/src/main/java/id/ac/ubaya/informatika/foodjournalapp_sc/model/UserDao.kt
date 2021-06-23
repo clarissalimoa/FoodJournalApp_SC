@@ -27,4 +27,17 @@ interface UserDao {
 
     @Delete
     suspend fun deleteUser(user:User)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(vararg food:Food)
+
+    @Query("SELECT * FROM food")
+    suspend fun selectAllFood(): List<Food>
+
+    @Query("SELECT * FROM food WHERE id= :id")
+    suspend fun selectFood(id:Int): Food
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(vararg foodHistory: FoodHistory)
+
 }

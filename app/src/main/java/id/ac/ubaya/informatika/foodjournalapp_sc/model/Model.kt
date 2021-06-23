@@ -42,12 +42,12 @@ data class Food(
 
 @Entity
 data class FoodHistory(
-        @ColumnInfo(name="name")
-        var name:String,
-        @ColumnInfo(name="calories")
-        var calories:String,
-        @ColumnInfo(name="date")
-        var date:String
+    @ColumnInfo(name="name")
+    var name:String,
+    @ColumnInfo(name="calories")
+    var calories:String,
+    @ColumnInfo(name="date")
+    var date:String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id:Int =0
