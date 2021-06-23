@@ -9,7 +9,11 @@
         android:id="@+id/welcomeScreenFragment"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.WelcomeScreenFragment"
         android:label="Welcome"
-        tools:layout="@layout/fragment_welcome_screen"/>
+        tools:layout="@layout/fragment_welcome_screen">
+        <action
+            android:id="@+id/actionWelcomeToLog"
+            app:destination="@id/itemFoodLog" />
+    </fragment>
     <fragment
         android:id="@+id/ItemLogAMeal"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
