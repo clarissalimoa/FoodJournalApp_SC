@@ -15,7 +15,7 @@
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
         android:label="Log A Meal" />
     <fragment
-        android:id="@+id/ItemReport"
+        android:id="@+id/itemReport"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodJournalFragment"
         android:label="Report" />
     <fragment

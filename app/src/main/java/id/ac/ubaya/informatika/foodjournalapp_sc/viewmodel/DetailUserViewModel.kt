@@ -5,8 +5,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
+import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
-import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb
+import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb1
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,11 +19,11 @@ class DetailUserViewModel(application: Application)
     :AndroidViewModel(application), CoroutineScope {
     private val job = Job()
     val userLD = MutableLiveData<User>()
-    var jml = 0;
+    var jml = 0
 
-    fun addUser(list: List<User>) {
+    fun addUser(list:List<User>) {
         launch {
-            val db = buildDb(getApplication())
+            val db = buildDb1(getApplication())
             db.userDao().insertAll(*list.toTypedArray())
         }
     }
@@ -32,23 +33,36 @@ class DetailUserViewModel(application: Application)
 
     fun fetch(uuid: Int) {
         launch {
-            val db = buildDb(getApplication())
+            val db = buildDb1(getApplication())
             userLD.value = db.userDao().selectUser(uuid)
+        }
+    }
+
+    fun fetch() {
+        launch {
+            val db = buildDb1(getApplication())
+            val list = db.userDao().selectAllUser()
         }
     }
 
     fun fetchCurrentUser() {
         launch {
-            val db = buildDb(getApplication())
+            val db = buildDb1(getApplication())
             userLD.value = db.userDao().selectCurrentUser()
         }
     }
 
-    fun jumlah(){
+    fun jumlah1(){
         launch {
-            val db = buildDb(getApplication())
+            val db = buildDb1(getApplication())
            jml = db.userDao().selectJumlah()
         }
+    }
+
+    fun jumlah2():Int
+    {
+        jumlah1()
+        return jml
     }
 
 //    fun update(title:String, notes:String, priority:Int, uuid:Int) {

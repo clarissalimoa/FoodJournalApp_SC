@@ -15,11 +15,12 @@ abstract class UserDatabase:RoomDatabase() {
         @Volatile private var instance:UserDatabase ?= null
 
         private val LOCK = Any()
+
         private fun buildDatabase(context:Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 UserDatabase::class.java,
-                "foodjournaldb")
+                "foodjournaldb1")
                 .addMigrations()
                 .build()
 

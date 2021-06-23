@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable name="user" type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
-        <variable name="caloriesToday" type="Integer" />
-        <variable name="statToday" type="String" />
+
     </data>
 
-<FrameLayout
+
+    <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.FoodLogFragment">
@@ -22,12 +23,12 @@
             android:id="@+id/cardView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/primaryColor"
-            android:backgroundTint="@color/primaryColor"
+            android:background="#4CAF50"
+            android:backgroundTint="#4CAF50"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="@{user.name}"
+                    android:text="Name"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -52,8 +53,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/karla"
-                    android:text="@{user.gender}"
-
+                    android:text="Male"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lbNama" />
@@ -83,11 +83,11 @@
                     android:id="@+id/lbAge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{user.age}"
-                    app:layout_constraintStart_toEndOf="@+id/lbGender"
-                    app:layout_constraintTop_toBottomOf="@+id/lbNama" />
+                    android:text="@{ `` + user.age}"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/lbNama"
+                    tools:text="25" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text=" years"
-                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintStart_toEndOf="@+id/lbAge"
                     app:layout_constraintTop_toBottomOf="@+id/lbNama" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -147,7 +147,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="@{user.caloriesTarget}"
+                    android:text="@{`` +user.caloriesTarget}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/progressCalToday"
@@ -195,7 +195,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
-                    android:progress="@{caloriesToday/user.caloriesTarget}"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/calToday" />
@@ -246,7 +246,19 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
         </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout></layout>

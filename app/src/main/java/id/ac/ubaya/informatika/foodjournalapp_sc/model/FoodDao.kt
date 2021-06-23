@@ -6,7 +6,7 @@ import androidx.room.*
 interface FoodDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg user:Food)
+    suspend fun insertAll(vararg food:Food)
 
     @Query("SELECT * FROM food")
     suspend fun selectAllFood(): List<Food>

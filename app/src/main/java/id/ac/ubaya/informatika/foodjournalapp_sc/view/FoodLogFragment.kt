@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentFoodLogBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
+import kotlinx.android.synthetic.main.fragment_food_log.*
 
 class FoodLogFragment : Fragment() {
     private lateinit var viewModel: DetailUserViewModel
@@ -31,6 +33,7 @@ class FoodLogFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
         viewModel.fetchCurrentUser()
 
+
         observeViewModel()
 
     }
@@ -43,6 +46,10 @@ class FoodLogFragment : Fragment() {
           // dataBinding.statToday = if(dataBinding.caloriesToday <= 0.5*it.caloriesTarget) "LOW"
           // else if(dataBinding.caloriesToday > 0.5*it.caloriesTarget && dataBinding.caloriesToday <= it.caloriesTarget) "NORMAL"
           // else "EXCEED"
+            floatingActionButton.setOnClickListener {
+                val action = FoodLogFragmentDirections.actionItemFoodLogToItemLogAMeal()
+                Navigation.findNavController(it).navigate(action)
+            }
         })
     }
 

@@ -4,6 +4,7 @@ package id.ac.ubaya.informatika.foodjournalapp_sc.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
 data class User(
@@ -33,7 +34,10 @@ data class Food(
     @ColumnInfo(name="name")
     var name:String,
     @ColumnInfo(name="calories")
-    var calories:String
+    var calories:String,
+    @ColumnInfo(name="date")
+    var date:String
+
 ) {
     @PrimaryKey(autoGenerate = true)
     var id:Int =0

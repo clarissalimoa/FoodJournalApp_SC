@@ -8,9 +8,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.FoodDatabase
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.UserDatabase
 
-const val DB_NAME1 = "foodjournaldb";
-const val DB_NAME2 = "foodjournaldb";
-fun buildDb(context: Context):UserDatabase {
+const val DB_NAME1 = "foodjournaldb1";
+const val DB_NAME2 = "foodjournaldb2";
+fun buildDb1(context: Context):UserDatabase {
     val db1 = Room.databaseBuilder(context, UserDatabase::class.java, DB_NAME1).build()
     return db1
 }

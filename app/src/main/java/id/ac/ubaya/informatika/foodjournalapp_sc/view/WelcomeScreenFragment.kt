@@ -90,7 +90,7 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
     }
 
     override fun UserSaveWelcomeChanges(v: View, obj: User) {
-        viewModel.addUser(listOf(obj))
+       // viewModel.addUser(listOf(obj))
         Toast.makeText(v.context, "Todo Updated", Toast.LENGTH_SHORT).show()
     }
 

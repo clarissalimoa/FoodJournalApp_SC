@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
-import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb
+import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb2
 
 class DetailFoodViewModel (application: Application): AndroidViewModel(application), CoroutineScope {
     private val job = Job()
@@ -17,9 +17,8 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
 
     fun addFood(list:List<Food>) {
         launch {
-            val db = buildDb(getApplication())
-            //Room.databaseBuilder( getApplication(), TodoDatabase::class.java, "newtododb").build()// dari week 8
-            //db.foodDao().insertAll(*list.toTypedArray())
+            val db = buildDb2(getApplication())
+            db.foodDao().insertAll(*list.toTypedArray())
         }
     }
 
@@ -27,8 +26,8 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
     fun fetch(uuid:Int)
     {
         launch{
-            val db = buildDb(getApplication())
-           // foodLD.value = db.foodDao().selectFood(uuid)
+            val db = buildDb2(getApplication())
+           foodLD.value = db.foodDao().selectFood(uuid)
         }
     }
 
