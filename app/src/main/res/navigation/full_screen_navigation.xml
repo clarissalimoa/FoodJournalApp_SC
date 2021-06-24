@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/full_screen_navigation"
+    app:startDestination="@id/welcomeScreenFragment2">
+
+    <fragment
+        android:id="@+id/welcomeScreenFragment2"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.WelcomeScreenFragment"
+        android:label="WelcomeScreenFragment" />
+</navigation>

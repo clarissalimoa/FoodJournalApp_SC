@@ -46,18 +46,18 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
-        observeViewModel()
+        observeViewModel(view)
 
         dataBinding.listener = this
 
     }
 
-    fun observeViewModel() {
+    fun observeViewModel(v:View) {
         viewModel.userLD.observe(viewLifecycleOwner, Observer {
             user = it
             if(user!=null){
-              //  val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
-//                Navigation.findNavController().navigate(action)
+                val action = WelcomeScreenFragmentDirections.actionWelcomeToLog()
+                Navigation.findNavController(v).navigate(action)
             }
         })
     }
