@@ -44,12 +44,12 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
 
         dataBinding.listener = this
 
-        radioGroupGoals.setOnCheckedChangeListener(
-                RadioGroup.OnCheckedChangeListener{ group, checkedId ->
-                    val radio: RadioButton = findViewById(checkedId)
-                    Toast.makeText(applicationContext," On checked change : ${radio.tag}",
-                            Toast.LENGTH_SHORT).show()
-                })
+//        radioGroupGoals.setOnCheckedChangeListener(
+//                RadioGroup.OnCheckedChangeListener{ group, checkedId ->
+//                    val radio: RadioButton = findViewById(checkedId)
+//                    Toast.makeText(applicationContext," On checked change : ${radio.tag}",
+//                            Toast.LENGTH_SHORT).show()
+//                })
 
 
     }
@@ -73,7 +73,7 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
         val age = txtAge.text.toString().toInt()
         val height = txtHeight.text.toString().toDouble()
         val weight = txtWeight.text.toString().toDouble()
-        var bmr:Double = if(txtGender.text.toString()=="male") 13397*weight + 4799*height - 5677*age + 88362 else 9247*weight + 3098*height - 4330*age + 447593
+        var bmr:Double = if(txtGender.text.toString()=="male") 13.397*weight + 4.799*height - 5.677*age + 88.362 else 9.247*weight + 3.098*height - 4.330*age + 447.593
         var target:Int = if(radio.tag=="maintain") bmr.roundToInt()
         else if(radio.tag=="gain") (bmr*115/100).roundToInt()
         else if(radio.tag=="lose") (bmr*85/100).roundToInt()
