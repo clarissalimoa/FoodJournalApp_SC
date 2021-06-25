@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodJournalApp_SC">
-        <activity android:name=".view.FullScreenActivity"></activity>
-        <activity android:name=".LoginActivity" />
         <activity android:name=".view.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
