@@ -62,7 +62,7 @@ class WelcomeScreenFragment : Fragment(),UserSaveWelcomeChangesListener {
         })
     }
 
-    override fun UserSaveWelcomeChanges(v: View, obj: User) {
+    override fun UserSaveWelcomeChanges(v: View) {
         val radio = v.findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
         val name = txtName.text.toString()
         val age = txtAge.text.toString().toInt()

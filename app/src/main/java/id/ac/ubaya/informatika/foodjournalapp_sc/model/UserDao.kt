@@ -17,7 +17,7 @@ interface UserDao {
     @Query("SELECT * FROM user LIMIT 1")
     suspend fun selectCurrentUser(): User
 
-    @Query("SELECT COUNT(*) FROM user ")
+    @Query("SELECT COUNT(*) FROM user")
     suspend fun selectJumlah():Int
 
 //    @Query("UPDATE user SET name=:name, age=:age, gender=:gender, " +
@@ -28,16 +28,16 @@ interface UserDao {
     @Delete
     suspend fun deleteUser(user:User)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg food:Food)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertAllFood(vararg food:Food)
+//
+//    @Query("SELECT * FROM food")
+//    suspend fun selectAllFood(): List<Food>
+//
+//    @Query("SELECT * FROM food WHERE id= :id")
+//    suspend fun selectFood(id:Int): Food
 
-    @Query("SELECT * FROM food")
-    suspend fun selectAllFood(): List<Food>
-
-    @Query("SELECT * FROM food WHERE id= :id")
-    suspend fun selectFood(id:Int): Food
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg foodHistory: FoodHistory)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertAll(vararg foodHistory: FoodHistory)
 
 }

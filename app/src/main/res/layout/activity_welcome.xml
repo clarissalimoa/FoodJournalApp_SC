@@ -215,9 +215,11 @@
                         android:background="@color/secondaryDarkColor"
                         android:backgroundTint="@color/secondaryDarkColor"
                         android:text="Start the journey!"
+                        android:onClick="@{(view)->listener.UserSaveWelcomeChanges(view)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

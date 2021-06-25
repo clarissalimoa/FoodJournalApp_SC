@@ -1,29 +1,29 @@
 package id.ac.ubaya.informatika.foodjournalapp_sc.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.ActivityWelcomeBinding
-import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentWelcomeScreenBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
-import id.ac.ubaya.informatika.foodjournalapp_sc.model.UserDao
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
-import kotlinx.android.synthetic.main.fragment_welcome_screen.*
+import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlin.math.roundToInt
 
-class WelcomeActivity : AppCompatActivity() {
+
+class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
     private lateinit var viewModel: DetailUserViewModel
     private lateinit var dataBinding: ActivityWelcomeBinding
+    private lateinit var user: User
+
 
     override fun onResume() {
         super.onResume()
@@ -32,45 +32,64 @@ class WelcomeActivity : AppCompatActivity() {
         txtGender.setAdapter(arrayAdapter)
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider( this).get(DetailUserViewModel::class.java)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        btStart.setOnClickListener {
-            val radio = this.findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
-            val name = txtName.text.toString()
-            val age = txtAge.text.toString().toInt()
-            val height = txtHeight.text.toString().toDouble()
-            val weight = txtWeight.text.toString().toDouble()
-            var bmr:Double = if(txtGender.text.toString()=="male") 13397*weight + 4799*height - 5677*age + 88362 else 9247*weight + 3098*height - 4330*age + 447593
-            var target:Int = if(radio.tag.toString()=="maintain") bmr.roundToInt()
-            else if(radio.tag.toString()=="gain") (bmr*115/100).roundToInt()
-            else if(radio.tag.toString()=="lose") (bmr*85/100).roundToInt()
-            else 0
-            val user = User(txtName.text.toString(), age, txtGender.text.toString(),
-                txtHeight.text.toString().toInt(),txtWeight.text.toString().toInt(),
-                radio.tag.toString(), bmr, target)
+        dataBinding = setContentView(this, R.layout.activity_welcome)
+        viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
+        observeViewModel()
 
-            val list = listOf(user)
-           // viewModel.addUser(list)
-            Toast.makeText(this, "Let's get start! " +viewModel.jumlah2()  , Toast.LENGTH_LONG).show()
+        dataBinding.listener = this
 
-           // val intent = Intent(this, MainActivity::class.java).apply {}
-           // startActivity(intent)
-            //this.finish()
-        }
+        radioGroupGoals.setOnCheckedChangeListener(
+                RadioGroup.OnCheckedChangeListener{ group, checkedId ->
+                    val radio: RadioButton = findViewById(checkedId)
+                    Toast.makeText(applicationContext," On checked change : ${radio.tag}",
+                            Toast.LENGTH_SHORT).show()
+                })
 
-        //cek apakah user pernah ngisi | masih gabisa
 
-        if(viewModel.jumlah2() >= 1)
-        {
-            val intent = Intent(this, MainActivity::class.java).apply {}
-            startActivity(intent)
-            this.finish()
-        }
-        Toast.makeText(this, ""+viewModel.jumlah2()  , Toast.LENGTH_LONG).show()
+    }
 
+
+    fun observeViewModel() {
+        viewModel.fetchCurrentUser()
+        viewModel.userLD.observe(this, Observer {
+            if (it != null) {
+                //Pindah activity
+                val intent = Intent(this, MainActivity::class.java).apply {}
+                startActivity(intent)
+                this.finish()
+            }
+        })
+    }
+
+    override fun UserSaveWelcomeChanges(v: View) {
+        val radio = findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
+        val name = txtName.text.toString()
+        val age = txtAge.text.toString().toInt()
+        val height = txtHeight.text.toString().toDouble()
+        val weight = txtWeight.text.toString().toDouble()
+        var bmr:Double = if(txtGender.text.toString()=="male") 13397*weight + 4799*height - 5677*age + 88362 else 9247*weight + 3098*height - 4330*age + 447593
+        var target:Int = if(radio.tag=="maintain") bmr.roundToInt()
+        else if(radio.tag=="gain") (bmr*115/100).roundToInt()
+        else if(radio.tag=="lose") (bmr*85/100).roundToInt()
+        else 0
+
+        var user = User(txtName.text.toString(), age, txtGender.text.toString(),
+                txtHeight.text.toString().toInt(), txtWeight.text.toString().toInt(),
+                radio.getTag().toString(), bmr, target)
+        val list = listOf(user)
+        viewModel.addUser(list)
+        Toast.makeText(applicationContext, "Let's get start!", Toast.LENGTH_LONG).show()
+
+        //Pindah activity
+        val intent = Intent(this, MainActivity::class.java).apply {}
+        startActivity(intent)
+        this.finish()
     }
 
 

@@ -5,5 +5,5 @@ import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
 
 
 interface UserSaveWelcomeChangesListener{
-    fun UserSaveWelcomeChanges(v:View, obj:User)
+    fun UserSaveWelcomeChanges(v:View)
 }

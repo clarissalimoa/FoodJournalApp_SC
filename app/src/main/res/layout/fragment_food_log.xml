@@ -6,6 +6,9 @@
 
     <data>
         <variable name="user" type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
+        <variable name="caloriesToday" type="String" />
+        <variable name="statToday" type="String" />
+        <variable name="dateToday" type="String" />
 
     </data>
 
@@ -41,10 +44,11 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="Name"
+                    android:text="@{user.name}"
                     android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="User's Name"/>
 
                 <TextView
                     android:id="@+id/lbGender"
@@ -53,10 +57,11 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/karla"
-                    android:text="Male"
+                    android:text="@{user.gender}"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lbNama" />
+                    app:layout_constraintTop_toBottomOf="@+id/lbNama"
+                    tools:text="Gender, " />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -84,19 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@{ `` + user.age}"
+                    android:text="@{ `` + user.age+` years`}"
                     app:layout_constraintStart_toEndOf="@+id/textView5"
                     app:layout_constraintTop_toBottomOf="@+id/lbNama"
-                    tools:text="25" />
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text=" years"
-                    app:layout_constraintStart_toEndOf="@+id/lbAge"
-                    app:layout_constraintTop_toBottomOf="@+id/lbNama" />
+                    tools:text="... years" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -122,9 +118,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
-                    android:text="Today's Date"
+                    android:text="@{dateToday}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Today's Date"/>
 
                 <TextView
                     android:id="@+id/textView12"
@@ -147,11 +144,13 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="@{`` +user.caloriesTarget}"
+                    android:text="@{user.caloriesTarget+ ``}"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/progressCalToday"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="Max Calories" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -170,10 +169,11 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="Today's Cal"
+                    android:text="@{caloriesToday}"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lbCurrentDate" />
+                    app:layout_constraintTop_toBottomOf="@+id/lbCurrentDate"
+                    tools:text="Today's Cal" />
 
                 <TextView
                     android:id="@+id/statusToday"
@@ -182,10 +182,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/karla_bold"
-                    android:text="LOW/HIGH"
+                    android:text="@{statToday}"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
+                    tools:text="LOW/EXCEED"/>
 
                 <ProgressBar
                     android:id="@+id/progressCalToday"

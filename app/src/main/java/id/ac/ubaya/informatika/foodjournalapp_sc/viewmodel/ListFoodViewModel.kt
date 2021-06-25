@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
-import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb2
+import id.ac.ubaya.informatika.foodjournalapp_sc.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,9 +26,9 @@ class ListFoodViewModel (application: Application) : AndroidViewModel(applicatio
         loadingLD.value = true
         foodErrorLD.value = false
         launch {
-            val db = buildDb2(getApplication())
+            val db = buildDb(getApplication())
             //Room.databaseBuilder( getApplication(),  TodoDatabase::class.java , "newtododb").build() dari week 8
-            foodLD.value = db.foodDao().selectAllFood()
+            foodLD.value = db.foodDao().selectAll()
         }
     }
 }
