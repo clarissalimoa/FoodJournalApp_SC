@@ -52,7 +52,6 @@ class FoodLogFragment : Fragment() {
 
         recViewLogs.layoutManager = LinearLayoutManager(context)
         recViewLogs.adapter = foodLogListAdapter
-        val current = LocalDateTime.now()
         val currentDate = SimpleDateFormat("dd MMM yyyy").format(Date()).toString()
 
         viewModelHistory.todayList(currentDate)

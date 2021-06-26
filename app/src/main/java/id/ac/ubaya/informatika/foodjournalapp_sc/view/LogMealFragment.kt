@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentLogMealBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.*
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LogMealFragment : Fragment() , ButtonAddMealClick, ButtonAddMealClick2 {
+class LogMealFragment : Fragment() , ButtonAddMealClick {
     private lateinit var viewModel:DetailFoodViewModel
     private lateinit var viewModel2:DetailUserViewModel
     private lateinit var dataBinding: FragmentLogMealBinding
@@ -39,6 +40,8 @@ class LogMealFragment : Fragment() , ButtonAddMealClick, ButtonAddMealClick2 {
 
         viewModel = ViewModelProvider(this).get(DetailFoodViewModel::class.java)
         viewModel2 = ViewModelProvider(this).get(DetailUserViewModel::class.java)
+
+        dataBinding.listener = this
 
         val sdf = SimpleDateFormat("dd MMMM yyyy")
         val currentDate = sdf.format(Date())
@@ -77,12 +80,12 @@ class LogMealFragment : Fragment() , ButtonAddMealClick, ButtonAddMealClick2 {
 
     }
 
-    override fun onButtonAddMealClick(v: View) {
-        Toast.makeText(v.context, "Food added", Toast.LENGTH_SHORT).show()
-    }
+//    override fun onButtonAddMealClick(v: View) {
+//        Toast.makeText(v.context, "Food added", Toast.LENGTH_SHORT).show()
+//    }
 
     @SuppressLint("SimpleDateFormat")
-    override fun onButtonAddMealClick2(v: View) {
+    override fun onButtonAddMealClick(v: View) {
         val sdf = SimpleDateFormat("dd/MMMM/yyyy")
         val currentDate = sdf.format(Date())
         var makanan = FoodHistory(txtFLName.text.toString(), txtFLKalori.text.toString().toInt(),currentDate)
@@ -133,7 +136,11 @@ class LogMealFragment : Fragment() , ButtonAddMealClick, ButtonAddMealClick2 {
             viewModel.addhistory(history)
         }
 
-        Toast.makeText(v.context, "Food added", Toast.LENGTH_SHORT).show()
+        Toast.makeText(v.context, "Food Log added", Toast.LENGTH_SHORT).show()
+
+        //Back to previous fragment
+        val action = LogMealFragmentDirections.actionLogMealToFoodLog()
+        Navigation.findNavController(v).navigate(action)
     }
 
 

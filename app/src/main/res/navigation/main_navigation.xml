@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/ItemLogAMeal"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
-        android:label="Log A Meal" />
+        android:label="Log A Meal" >
+        <action
+            android:id="@+id/actionLogMealToFoodLog"
+            app:destination="@id/itemFoodLog" />
+    </fragment>
     <fragment
         android:id="@+id/itemReport"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodJournalFragment"

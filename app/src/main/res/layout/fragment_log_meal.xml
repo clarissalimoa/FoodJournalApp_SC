@@ -12,7 +12,7 @@
             type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
         <variable
             name="listener"
-            type="id.ac.ubaya.informatika.foodjournalapp_sc.view.ButtonAddMealClick2" />
+            type="id.ac.ubaya.informatika.foodjournalapp_sc.view.ButtonAddMealClick" />
     </data>
 
     <FrameLayout
@@ -116,16 +116,16 @@
                     android:layout_marginEnd="24dp"
                     android:background="#8BC34A"
                     android:backgroundTint="#8BC34A"
-                    android:onClick="@{(view)->listener.onButtonAddMealClick2(view)}"
-                    android:text="LOG A MEAL"
                     android:textColor="#FFFFFF"
+                    android:text="LOG THIS MEAL"
+                    android:onClick="@{(view)->listener.onButtonAddMealClick(view)}"
                     app:cornerRadius="50dp"
                     app:iconTint="#8BC34A"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkBoxFLSimpan"
                     app:rippleColor="#8BC34A"
-                    tools:text="LOG THIS MEAL" />
+                     />
 
                 <CheckBox
                     android:id="@+id/checkBoxFLSimpan"
