@@ -13,6 +13,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ListFoodHistoryViewModel  (application: Application) : AndroidViewModel(application), CoroutineScope {
     val foodsLD = MutableLiveData<List<FoodHistory>>()
+    val totalFoodsCalories = MutableLiveData<Int>()
     val foodsErrorLD = MutableLiveData<Boolean>()
     val loadingLD = MutableLiveData<Boolean>()
 
@@ -28,6 +29,31 @@ class ListFoodHistoryViewModel  (application: Application) : AndroidViewModel(ap
         launch {
             val db = buildDb(getApplication())
             foodsLD.value = db.foodHistoryDao().selectToday(date)
+        }
+    }
+
+    fun allFoodHistories()
+    {
+        loadingLD.value = true
+        foodsErrorLD.value = false
+        launch {
+            val db = buildDb(getApplication())
+            foodsLD.value = db.foodHistoryDao().selectAll()
+        }
+    }
+
+    fun totalCaloriesToday(date:String)
+    {
+        loadingLD.value = true
+        foodsErrorLD.value = false
+        launch {
+            val db = buildDb(getApplication())
+            if(db.foodHistoryDao().selectTodayTotalCalories(date)==null){
+                totalFoodsCalories.value = 0
+            }
+            else{
+                totalFoodsCalories.value = db.foodHistoryDao().selectTodayTotalCalories(date)
+            }
         }
     }
 }

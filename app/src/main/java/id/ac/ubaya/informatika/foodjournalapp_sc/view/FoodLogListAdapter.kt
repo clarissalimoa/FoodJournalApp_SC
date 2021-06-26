@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FoodlogListItemBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
+import id.ac.ubaya.informatika.foodjournalapp_sc.model.FoodHistory
 import kotlinx.android.synthetic.main.foodlog_list_item.view.*
 
-class FoodLogListAdapter(val foodList:ArrayList<Food>, val adapterOnClick : (Any) -> Unit)
+class FoodLogListAdapter(val foodLogList:ArrayList<FoodHistory>, val adapterOnClick : (Any) -> Unit)
     :RecyclerView.Adapter<FoodLogListAdapter.FoodLogViewHolder>() {
     class FoodLogViewHolder(var view:FoodlogListItemBinding): RecyclerView.ViewHolder(view.root)
 
@@ -23,10 +24,15 @@ class FoodLogListAdapter(val foodList:ArrayList<Food>, val adapterOnClick : (Any
         return FoodLogViewHolder(view)
     }
     override fun getItemCount(): Int {
-        return foodList.size
+        return foodLogList.size
     }
     override fun onBindViewHolder(holder: FoodLogViewHolder, position: Int) {
-        holder.view.food = foodList[position] //food instaniated
+        holder.view.food = foodLogList[position] //food instaniated
 
+    }
+    fun updateFoodHistoryList(newFoodHistoryList: List<FoodHistory>) {
+        foodLogList.clear()
+        foodLogList.addAll(newFoodHistoryList)
+        notifyDataSetChanged()
     }
 }

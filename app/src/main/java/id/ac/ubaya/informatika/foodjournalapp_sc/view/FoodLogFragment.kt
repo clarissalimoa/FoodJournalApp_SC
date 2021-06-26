@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -31,6 +32,7 @@ class FoodLogFragment : Fragment() {
     private lateinit var viewModelHistory: ListFoodHistoryViewModel
     private lateinit var dataBinding: FragmentFoodLogBinding
     private val foodLogListAdapter = FoodLogListAdapter(arrayListOf(),{})
+    private var calTarget:Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,27 +55,47 @@ class FoodLogFragment : Fragment() {
         recViewLogs.layoutManager = LinearLayoutManager(context)
         recViewLogs.adapter = foodLogListAdapter
         val currentDate = SimpleDateFormat("dd MMM yyyy").format(Date()).toString()
+        val currentDateSqlFormat = SimpleDateFormat("yyyy-MM-dd").format(Date()).toString()
 
-        viewModelHistory.todayList(currentDate)
+        viewModelHistory.todayList(currentDateSqlFormat)
+        viewModelHistory.totalCaloriesToday(currentDateSqlFormat)
+
         dataBinding.dateToday = currentDate
-        observeViewModel()
+        observeViewModel(view)
 
     }
 
-    fun observeViewModel() {
+    fun observeViewModel(v:View) {
         viewModel.userLD.observe(viewLifecycleOwner, Observer {
+//            Toast.makeText(v.context, "User Logs: "+it.toString(), Toast.LENGTH_SHORT).show()
+
             dataBinding.user = it
-            //Total dari foodlog hari ini
-            val calToday = 0 //masih salah, harusnya select SUM today's foodlog
-            dataBinding.caloriesToday = (calToday).toString()
-            dataBinding.statToday = if(calToday <= 0.5*it.caloriesTarget) "LOW"
-            else if(calToday > 0.5*it.caloriesTarget && calToday <= it.caloriesTarget) "NORMAL"
-            else "EXCEED"
+            calTarget=it.caloriesTarget
 
             floatingActionButton.setOnClickListener {
                 val action = FoodLogFragmentDirections.actionItemFoodLogToItemLogAMeal()
                 Navigation.findNavController(it).navigate(action)
             }
+        })
+
+        viewModelHistory.foodsLD.observe(viewLifecycleOwner, Observer{
+//            Toast.makeText(v.context, "Food Logs: "+it.toString(), Toast.LENGTH_SHORT).show()
+            foodLogListAdapter.updateFoodHistoryList(it)
+        })
+
+        viewModelHistory.totalFoodsCalories.observe(viewLifecycleOwner, Observer{
+//            Toast.makeText(v.context, "totalFoodsCalories: "+it.toString(), Toast.LENGTH_SHORT).show()
+            //Total dari foodlog hari ini
+            val calToday = it
+            dataBinding.caloriesToday = (calToday).toString()
+            dataBinding.statToday = if(calToday <= 0.5*calTarget) "LOW"
+            else if(calToday > 0.5*calTarget && calToday <= calTarget) "NORMAL"
+            else "EXCEED"
+
+            dataBinding.progressLog = if(calToday==0) 0
+            else if(calToday>0 && calToday*100/calTarget<=100) calToday*100/calTarget
+            else 100
+//            Toast.makeText(v.context, "progress: "+(calToday*100/calTarget).toString(), Toast.LENGTH_SHORT).show()
         })
     }
 

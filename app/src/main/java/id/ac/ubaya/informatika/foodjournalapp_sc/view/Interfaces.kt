@@ -13,7 +13,3 @@ interface UserSaveWelcomeChangesListener{
 interface ButtonAddMealClick{
     fun onButtonAddMealClick(v: View )
 }
-
-interface ButtonAddMealClick2{
-    fun onButtonAddMealClick2(v: View )
-}
