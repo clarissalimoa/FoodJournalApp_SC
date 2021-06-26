@@ -2,12 +2,15 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="food" type="id.ac.ubaya.informatika.foodjournalapp_sc.model.History"/>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="ExtraText">
 
         <TextView
             android:id="@+id/textViewHITanggal"
@@ -15,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:text="05 Desember 2021"
+            android:text="@{food.date}"
             android:textColor="#000000"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="8dp"
-            android:text="6 Meals (3300 Cal)"
+            android:text="@{food.foodCount +` Meals (`+food.totalCalory+` Cal)`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewHITanggal" />
@@ -48,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:text="EXCEED"
+            android:text="@{food.status}"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewHITitleStatus" />

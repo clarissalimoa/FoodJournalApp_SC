@@ -11,10 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.google.android.material.button.MaterialButtonToggleGroup
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentFoodLogBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
 import kotlinx.android.synthetic.main.fragment_food_log.*
+import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -43,6 +45,8 @@ class FoodLogFragment : Fragment() {
 
         val current = LocalDateTime.now()
         val currentDate = SimpleDateFormat("dd MMM yyyy").format(Date())
+
+
         dataBinding.dateToday = currentDate.toString()
         observeViewModel()
 
@@ -64,6 +68,7 @@ class FoodLogFragment : Fragment() {
             }
         })
     }
+
 
 
 }

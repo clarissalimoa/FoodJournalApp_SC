@@ -45,10 +45,29 @@ data class FoodHistory(
     @ColumnInfo(name="name")
     var name:String,
     @ColumnInfo(name="calories")
-    var calories:String,
+    var calories:Int,
     @ColumnInfo(name="date")
     var date:String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id:Int =0
 }
+
+@Entity
+data class History(
+        @ColumnInfo(name="date")
+        var date:String,
+        @ColumnInfo(name="foodCount")
+        var foodCount:Int,
+        @ColumnInfo(name="totalCalory")
+        var totalCalory:Int,
+        @ColumnInfo(name="status")
+        var status:String
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id:Int =0
+}
+
+data class Data(
+        var data1:Int,
+)

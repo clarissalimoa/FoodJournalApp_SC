@@ -64,6 +64,11 @@ class DetailUserViewModel(application: Application)
         return jml
     }
 
+    fun goal(): Int? {
+        fetchCurrentUser()
+        return userLD.value?.caloriesTarget
+    }
+
 //    fun update(title:String, notes:String, priority:Int, uuid:Int) {
 //        launch {
 //            val db = buildDb(getApplication())

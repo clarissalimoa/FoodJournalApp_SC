@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="sisa"
+            type="id.ac.ubaya.informatika.foodjournalapp_sc.model.Data" />
+        <variable
+            name="user"
+            type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
+        <variable
+            name="listener"
+            type="id.ac.ubaya.informatika.foodjournalapp_sc.view.ButtonAddMealClick2" />
     </data>
 
     <FrameLayout
@@ -33,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="2360 Cal"
+                android:text="@{(user.caloriesTarget - sisa.data1) +`Cal`}"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -56,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="24dp"
                 android:background="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,28 +103,54 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtFLKalori"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/buttonFLLog"
+                    android:id="@+id/buttonFLLogNew"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="#8BC34A"
+                    android:backgroundTint="#8BC34A"
+                    android:onClick="@{(view)->listener.onButtonAddMealClick2(view)}"
+                    android:text="LOG A MEAL"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="50dp"
+                    app:iconTint="#8BC34A"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkBoxFLSimpan"
+                    app:rippleColor="#8BC34A"
+                    tools:text="LOG THIS MEAL" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxFLSimpan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Save Food On List"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout6" />
+
+                <Button
+                    android:id="@+id/buttonFLList"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
-                    android:background="#8BC34A"
-                    android:backgroundTint="#8BC34A"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="50dp"
-                    app:iconTint="#8BC34A"
+                    android:text="Food List"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
-                    app:rippleColor="#8BC34A"
-                    tools:text="LOG THIS MEAL" />
+                    app:layout_constraintTop_toBottomOf="@+id/buttonFLLogNew" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
