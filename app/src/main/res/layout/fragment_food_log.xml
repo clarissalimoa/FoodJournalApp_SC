@@ -9,6 +9,7 @@
         <variable name="caloriesToday" type="String" />
         <variable name="statToday" type="String" />
         <variable name="dateToday" type="String" />
+        <variable name="fabListener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.ButtonAddMealClick" />
 
     </data>
 
@@ -245,6 +246,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView14" >
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recViewLogs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -257,6 +259,8 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:clickable="true"
+            android:onClick="@{(view)->fabListener.onButtonAddMealClick(view)}"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />

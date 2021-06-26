@@ -29,7 +29,7 @@ class ListFoodViewModel (application: Application) : AndroidViewModel(applicatio
 
         launch {
             val db = buildDb(getApplication())
-            foodLD.value = db.userDao().selectAllFood()
+            foodLD.value = db.foodDao().selectAllFood()
         }
     }
 
@@ -41,7 +41,7 @@ class ListFoodViewModel (application: Application) : AndroidViewModel(applicatio
             val sdf = SimpleDateFormat("MMMM yyyy")
             val currentDate = sdf.format(Date())
             val masuk = "%$currentDate%"
-            HistoryLD.value = db.userDao().selectAllHistory(masuk)
+            HistoryLD.value = db.historyDao().selectAllHistory(masuk)
         }
     }
 }

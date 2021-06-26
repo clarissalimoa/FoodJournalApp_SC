@@ -22,35 +22,35 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
     fun addFood(list:List<Food>) {
         launch {
             val db = buildDb(getApplication())
-            db.userDao().insertAll(*list.toTypedArray())
+            db.foodDao().insertAll(*list.toTypedArray())
         }
     }
 
     fun addhistory(history: History) {
         launch {
             val db = buildDb(getApplication())
-            db.userDao().insertAll(history)
+            db.historyDao().insertAll(history)
         }
     }
 
     fun addFoodHistory(list:List<FoodHistory>) {
         launch {
             val db = buildDb(getApplication())
-            db.userDao().insertAll(*list.toTypedArray())
+            db.foodHistoryDao().insertAll(*list.toTypedArray())
         }
     }
 
     fun selectTotalCalory(date:String) {
         launch {
             val db = buildDb(getApplication())
-            totalCalory.value = db.userDao().selecttotalCalory(date)
+            totalCalory.value = db.historyDao().selecttotalCalory(date)
         }
     }
 
     fun cekHistorybd(date:String) {
         launch {
             val db = buildDb(getApplication())
-            angka1 = db.userDao().selectJumlahHistory(date)
+            angka1 = db.historyDao().selectJumlahHistory(date)
         }
     }
 
@@ -63,17 +63,16 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
     {
         launch{
             val db = buildDb(getApplication())
-           foodLD.value = db.userDao().selectFood(uuid)
+           foodLD.value = db.foodDao().selectFood(uuid)
         }
     }
     fun updateHistory(fooodCalory2:Int, status2 :String, date2:String)
     {
         launch{
             val db = buildDb(getApplication())
-            db.userDao().updatehistory(fooodCalory2,status2,date2)
+            db.historyDao().updatehistory(fooodCalory2,status2,date2)
         }
     }
-
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main

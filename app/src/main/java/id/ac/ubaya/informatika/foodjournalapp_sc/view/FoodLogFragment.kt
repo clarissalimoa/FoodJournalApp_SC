@@ -11,10 +11,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButtonToggleGroup
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.FragmentFoodLogBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
+import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.ListFoodHistoryViewModel
+import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.ListFoodViewModel
 import kotlinx.android.synthetic.main.fragment_food_log.*
 import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
@@ -25,7 +28,9 @@ import java.util.*
 
 class FoodLogFragment : Fragment() {
     private lateinit var viewModel: DetailUserViewModel
+    private lateinit var viewModelHistory: ListFoodHistoryViewModel
     private lateinit var dataBinding: FragmentFoodLogBinding
+    private val foodLogListAdapter = FoodLogListAdapter(arrayListOf(),{})
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +48,15 @@ class FoodLogFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
         viewModel.fetchCurrentUser()
 
+        viewModelHistory = ViewModelProvider(this).get(ListFoodHistoryViewModel::class.java)
+
+        recViewLogs.layoutManager = LinearLayoutManager(context)
+        recViewLogs.adapter = foodLogListAdapter
         val current = LocalDateTime.now()
-        val currentDate = SimpleDateFormat("dd MMM yyyy").format(Date())
+        val currentDate = SimpleDateFormat("dd MMM yyyy").format(Date()).toString()
 
-
-        dataBinding.dateToday = currentDate.toString()
+        viewModelHistory.todayList(currentDate)
+        dataBinding.dateToday = currentDate
         observeViewModel()
 
     }
