@@ -106,7 +106,7 @@ class ChooseFoodListAdapter(val foodList: ArrayList<Food>, val adapterOnClick: (
             viewModel2.fetchCurrentUser()
             viewModel.angka1.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 jumlahHistory = it
-                if (jumlahHistory >= 1) {
+                if (jumlahHistory > 0) {
                     var status = "";
                     if ((calory + food.calories.toInt()) >= goals) {
                         status = "EXCEED"
@@ -130,7 +130,6 @@ class ChooseFoodListAdapter(val foodList: ArrayList<Food>, val adapterOnClick: (
                     viewModel.addhistory(history)
                 }
             })
-
 
 
             Toast.makeText(v.context, "Food Log added", Toast.LENGTH_SHORT).show()

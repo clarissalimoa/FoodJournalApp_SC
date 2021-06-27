@@ -24,13 +24,13 @@ import kotlinx.android.synthetic.main.fragment_food_log.*
  */
 class ChooseFoodFragment : Fragment() {
     private lateinit var viewModel: ListFoodViewModel
-
-    private val savedFoodsAdapter = ChooseFoodListAdapter(arrayListOf(),{}, this, viewLifecycleOwner)
+    private lateinit var savedFoodsAdapter:ChooseFoodListAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        savedFoodsAdapter = ChooseFoodListAdapter(arrayListOf(),{}, this, viewLifecycleOwner)
         return inflater.inflate(R.layout.fragment_choose_food, container, false)
     }
 
