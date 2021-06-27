@@ -16,10 +16,17 @@ import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.ActivityWelcomeBind
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.User
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
 import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.activity_welcome.radioGroupGoals
+import kotlinx.android.synthetic.main.activity_welcome.txtAge
+import kotlinx.android.synthetic.main.activity_welcome.txtGender
+import kotlinx.android.synthetic.main.activity_welcome.txtHeight
+import kotlinx.android.synthetic.main.activity_welcome.txtName
+import kotlinx.android.synthetic.main.activity_welcome.txtWeight
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlin.math.roundToInt
 
 
-class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
+class WelcomeActivity : AppCompatActivity(), UserSaveWelcomeChangesListener {
     private lateinit var viewModel: DetailUserViewModel
     private lateinit var dataBinding: ActivityWelcomeBinding
     private lateinit var user: User
@@ -31,7 +38,6 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_gender, genders)
         txtGender.setAdapter(arrayAdapter)
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,30 +66,33 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
     }
 
     override fun UserSaveWelcomeChanges(v: View) {
-        val radio = findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
-        val name = txtName.text.toString()
-        val age = txtAge.text.toString().toInt()
-        val height = txtHeight.text.toString().toDouble()
-        val weight = txtWeight.text.toString().toDouble()
-        var bmr:Double = if(txtGender.text.toString()=="male") 13.397*weight + 4.799*height - 5.677*age + 88.362 else 9.247*weight + 3.098*height - 4.330*age + 447.593
-        var target:Int = if(radio.tag=="maintain") bmr.roundToInt()
-        else if(radio.tag=="gain") (bmr*115/100).roundToInt()
-        else if(radio.tag=="lose") (bmr*85/100).roundToInt()
-        else 0
+        if (txtName.text.isNullOrEmpty() || txtAge.text.isNullOrEmpty() ||txtHeight.text.isNullOrEmpty() ||txtWeight.text.isNullOrEmpty() ||txtGender.text.isNullOrEmpty()) {
+            Toast.makeText(v.context, "Fill all the blank!", Toast.LENGTH_SHORT).show()
+        } else {
+            val radio = findViewById<RadioButton>(radioGroupGoals.checkedRadioButtonId)
+            val name = txtName.text.toString()
+            val age = txtAge.text.toString().toInt()
+            val height = txtHeight.text.toString().toDouble()
+            val weight = txtWeight.text.toString().toDouble()
+            var bmr: Double = if (txtGender.text.toString() == "male") 13.397 * weight + 4.799 * height - 5.677 * age + 88.362 else 9.247 * weight + 3.098 * height - 4.330 * age + 447.593
+            var target: Int = if (radio.tag == "maintain") bmr.roundToInt()
+            else if (radio.tag == "gain") (bmr * 115 / 100).roundToInt()
+            else if (radio.tag == "lose") (bmr * 85 / 100).roundToInt()
+            else 0
 
-        var user = User(name, age, txtGender.text.toString(),
-                height.toInt(), weight.toInt(),
-                radio.getTag().toString(), bmr, target)
-        val list = listOf(user)
-        viewModel.addUser(list)
-        Toast.makeText(applicationContext, "Let's get start!", Toast.LENGTH_LONG).show()
+            var user = User(name, age, txtGender.text.toString(),
+                    height.toInt(), weight.toInt(),
+                    radio.getTag().toString(), bmr, target)
+            val list = listOf(user)
+            viewModel.addUser(list)
+            Toast.makeText(applicationContext, "Let's get start!", Toast.LENGTH_LONG).show()
 
-        //Pindah activity
-        val intent = Intent(this, MainActivity::class.java).apply {}
-        startActivity(intent)
-        this.finish()
+            //Pindah activity
+            val intent = Intent(this, MainActivity::class.java).apply {}
+            startActivity(intent)
+            this.finish()
+        }
     }
-
 
 
 }

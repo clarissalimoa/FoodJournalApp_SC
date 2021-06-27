@@ -27,11 +27,11 @@ import java.util.*
 import kotlin.math.roundToInt
 
 
-class ProfileFragment : Fragment(), RadioClick, ButtoneditUserClick{
+class ProfileFragment : Fragment(), RadioClick, ButtoneditUserClick {
 
-    private lateinit var viewModel2:DetailUserViewModel
+    private lateinit var viewModel2: DetailUserViewModel
     private lateinit var dataBinding: FragmentProfileBinding
-    private var selectedGoal:String=""
+    private var selectedGoal: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -74,29 +74,22 @@ class ProfileFragment : Fragment(), RadioClick, ButtoneditUserClick{
     }
 
     override fun onButtonEditUserClick(v: View, obj: User) {
-//        Toast.makeText(v.context, "Save button clicked "+obj.toString(), Toast.LENGTH_SHORT).show()
+        if (txtName.text.isNullOrEmpty() || txtAge.text.isNullOrEmpty() ||txtHeight.text.isNullOrEmpty() ||txtWeight.text.isNullOrEmpty() ||txtGender.text.isNullOrEmpty()) {
+            Toast.makeText(v.context, "Fill all the blank!", Toast.LENGTH_SHORT).show()
+        } else {
+            val name = txtName.text.toString()
+            val age = txtAge.text.toString().toInt()
+            val height = txtHeight.text.toString().toDouble()
+            val weight = txtWeight.text.toString().toDouble()
+            var bmr: Double = if (txtGender.text.toString() == "male") 13.397 * weight + 4.799 * height - 5.677 * age + 88.362 else 9.247 * weight + 3.098 * height - 4.330 * age + 447.593
+            var target: Int = if (selectedGoal == "maintain") bmr.roundToInt()
+            else if (selectedGoal == "gain") (bmr * 115 / 100).roundToInt()
+            else if (selectedGoal == "lose") (bmr * 85 / 100).roundToInt()
+            else 0
+            viewModel2.update(name, age, txtGender.text.toString(), height.toInt(), weight.toInt(), selectedGoal, bmr, target, obj.uuid)
+            Toast.makeText(v.context, "User Data Updated", Toast.LENGTH_SHORT).show()
+        }
 
-//        var bmr:Double = if(txtGender.text.toString()=="male") 13.397*obj.weight + 4.799*obj.height - 5.677*obj.age + 88.362 else 9.247*obj.weight + 3.098*obj.height - 4.330*obj.age + 447.593
-//        var target:Int = if(obj.goal=="maintain") bmr.roundToInt()
-//        else if(obj.goal=="gain") (bmr*115/100).roundToInt()
-//        else if(obj.goal=="lose") (bmr*85/100).roundToInt()
-//        else 0
-//        viewModel2.update(obj.name, obj.age, obj.gender, obj.height, obj.weight,obj.goal, bmr, target, obj.uuid)
-
-        val name = txtName.text.toString()
-        val age = txtAge.text.toString().toInt()
-        val height = txtHeight.text.toString().toDouble()
-        val weight = txtWeight.text.toString().toDouble()
-        var bmr:Double = if(txtGender.text.toString()=="male") 13.397*weight + 4.799*height - 5.677*age + 88.362 else 9.247*weight + 3.098*height - 4.330*age + 447.593
-        var target:Int = if(selectedGoal=="maintain") bmr.roundToInt()
-        else if(selectedGoal=="gain") (bmr*115/100).roundToInt()
-        else if(selectedGoal=="lose") (bmr*85/100).roundToInt()
-        else 0
-
-        Toast.makeText(v.context, "Datas: "+name+age+height+weight+selectedGoal+bmr+target, Toast.LENGTH_SHORT).show()
-
-        viewModel2.update(name, age, txtGender.text.toString(), height.toInt(), weight.toInt(),selectedGoal, bmr, target, obj.uuid)
-        Toast.makeText(v.context, "User Data Updated", Toast.LENGTH_SHORT).show()
     }
 
     private fun observeViewModel() {
@@ -110,8 +103,8 @@ class ProfileFragment : Fragment(), RadioClick, ButtoneditUserClick{
 
     override fun onRadioClick(v: View, goal: String, obj: User) {
         obj.goal = goal
-        selectedGoal=goal
-        Toast.makeText(v.context, "Radio Clicked "+selectedGoal, Toast.LENGTH_SHORT).show()
+        selectedGoal = goal
+        Toast.makeText(v.context, "Radio Clicked " + selectedGoal, Toast.LENGTH_SHORT).show()
 
     }
 

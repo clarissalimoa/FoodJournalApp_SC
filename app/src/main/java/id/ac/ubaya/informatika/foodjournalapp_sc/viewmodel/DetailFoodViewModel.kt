@@ -22,6 +22,7 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
     var totalCalory = MutableLiveData<Data>()
     var angka1 = MutableLiveData<Int>()
     val totalFoodsCalories = MutableLiveData<Int>()
+    private var jumlahHistory:Int = 0
 
     fun addFood(list:List<Food>) {
         launch {
@@ -62,6 +63,7 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
             val currentDate = sdf.format(Date())
             val masuk = "%$currentDate%"
             angka1.value = db.historyDao().selectJumlahHistory(currentDate)
+            jumlahHistory = db.historyDao().selectJumlahHistory(currentDate)
         }
     }
 
@@ -86,6 +88,20 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
         launch{
             val db = buildDb(getApplication())
             db.historyDao().updatehistory(fooodCalory2,status2,date2)
+        }
+    }
+
+    fun addHistoryFromChosenFood(foodCalory:Int, status :String, date:String)
+    {
+        launch{
+            val db = buildDb(getApplication())
+            cekHistory()
+            if(jumlahHistory>0){
+                db.historyDao().updatehistory(foodCalory,status,date)
+            }
+            else{
+
+            }
         }
     }
 

@@ -19,18 +19,18 @@ import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LogMealFragment : Fragment() , ButtonAddMealClick {
-    private lateinit var viewModel:DetailFoodViewModel
-    private lateinit var viewModel2:DetailUserViewModel
+class LogMealFragment : Fragment(), ButtonAddMealClick {
+    private lateinit var viewModel: DetailFoodViewModel
+    private lateinit var viewModel2: DetailUserViewModel
     private lateinit var dataBinding: FragmentLogMealBinding
     var goals = 0;
     var calory = 0;
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        dataBinding  = DataBindingUtil.inflate<FragmentLogMealBinding>(inflater,R.layout.fragment_log_meal,container,false)
+        dataBinding = DataBindingUtil.inflate<FragmentLogMealBinding>(inflater, R.layout.fragment_log_meal, container, false)
         return dataBinding.root
     }
 
@@ -57,27 +57,27 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
 
         observeViewModel()
 
-        buttonFLList.setOnClickListener{
+        buttonFLList.setOnClickListener {
             val action = LogMealFragmentDirections.actionLogMealToChooseFood()
             Navigation.findNavController(it).navigate(action)
         }
-        btBackFoodLog.setOnClickListener{
+        btBackFoodLog.setOnClickListener {
             val action = LogMealFragmentDirections.actionLogMealToFoodLog()
             Navigation.findNavController(it).navigate(action)
         }
 
     }
+
     private fun observeViewModel() {
         viewModel.totalFoodsCalories.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-             dataBinding.sisa= it
+            dataBinding.sisa = it
+            calory = it
         })
 
         viewModel2.userLD.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             dataBinding.user = it
             goals = it.caloriesTarget
         })
-
-
     }
 
 //    override fun onButtonAddMealClick(v: View) {
@@ -142,9 +142,8 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
             viewModel2.fetchCurrentUser()
             observeViewModel()
 
-        }
-        else {
-            Toast.makeText(v.context, "Input Not Valid" , Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(v.context, "Input Not Valid", Toast.LENGTH_SHORT).show()
         }
 
     }
