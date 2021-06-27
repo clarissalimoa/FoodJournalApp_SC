@@ -83,4 +83,14 @@ class DetailUserViewModel(application: Application)
 //        }
 //    }
 
+    fun update(name1:String, age1 :Int, gender1: String, height1:Int, weight1:Int, goal1:String, bmr1:Double, target1:Int, uuid1:Int)
+    {
+        launch {
+            val db = buildDb(getApplication())
+            db.userDao().update(name1, age1 , gender1, height1, weight1, goal1, bmr1, target1, uuid1)
+        }
+    }
+
+
+
 }

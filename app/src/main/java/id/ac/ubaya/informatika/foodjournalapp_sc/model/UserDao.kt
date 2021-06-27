@@ -49,7 +49,8 @@ interface UserDao {
 //    @Query("SELECT count(*) as oke FROM history WHERE date LIKE :date")
 //    suspend fun selectJumlahHistory(date: String): Int
 //
-//    @Query("UPDATE history SET totalCalory=:totalCalory1+totalCalory, foodCount=foodCount+1, status=:status1 WHERE date = :date1")
-//    suspend fun updatehistory(totalCalory1:Int, status1:String, date1:String)
+    @Query("UPDATE user SET name=:name1 +age=:age1, gender=:gender1, height=:height1, weight=:weight1, goal=:goal1, bmr=:bmr1, caloriesTarget=:target1 WHERE uuid = :uuid1")
+    suspend fun update(name1:String, age1 :Int, gender1: String, height1:Int, weight1:Int, goal1:String, bmr1:Double, target1:Int, uuid1:Int )
+
 
 }

@@ -10,6 +10,7 @@
         <variable
             name="user"
             type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
+        <variable name="radioListener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.RadioClick" />
 
     </data>
     <FrameLayout
@@ -201,8 +202,9 @@
                             android:id="@+id/rbMaintain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
                             android:tag="maintain"
+                            android:onClick="@{(view)->radioListener.onRadioClick(view,`maintain`,user)}"
+                            android:checked="@{user.goal==`maintain`?true:false}"
                             android:text="Maintain Weight" />
 
                         <RadioButton
@@ -210,6 +212,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:tag="gain"
+                            android:onClick="@{(view)->radioListener.onRadioClick(view,`gain`,user)}"
+                            android:checked="@{user.goal==`gain`?true:false}"
                             android:text="Gain Weight" />
 
                         <RadioButton
@@ -217,6 +221,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:tag="lose"
+                            android:onClick="@{(view)->radioListener.onRadioClick(view,`lose`,user)}"
+                            android:checked="@{user.goal==`lose`?true:false}"
                             android:text="Lose Weight" />
                     </RadioGroup>
 
@@ -231,7 +237,7 @@
                         android:background="@color/secondaryDarkColor"
                         android:backgroundTint="@color/secondaryDarkColor"
                         android:text="Start the journey!"
-                        android:onClick="@{(view)->listener.onButtonEditUserClick(view)}"
+                        android:onClick="@{(view)->listener.onButtonEditUserClick(view, user)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

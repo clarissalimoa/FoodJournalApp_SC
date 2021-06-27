@@ -15,5 +15,9 @@ interface ButtonAddMealClick{
 }
 
 interface ButtoneditUserClick{
-    fun onButtonEditUserClick(v: View )
+    fun onButtonEditUserClick(v: View , obj:User )
+}
+
+interface RadioClick {
+    fun onRadioClick(v:View, goal:String, obj:User)
 }
