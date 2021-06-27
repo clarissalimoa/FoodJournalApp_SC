@@ -104,7 +104,6 @@ class ProfileFragment : Fragment(), RadioClick, ButtoneditUserClick {
     override fun onRadioClick(v: View, goal: String, obj: User) {
         obj.goal = goal
         selectedGoal = goal
-        Toast.makeText(v.context, "Radio Clicked " + selectedGoal, Toast.LENGTH_SHORT).show()
 
     }
 
