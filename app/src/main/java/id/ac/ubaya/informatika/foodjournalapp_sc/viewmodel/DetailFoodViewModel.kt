@@ -3,6 +3,7 @@ package id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import id.ac.ubaya.informatika.foodjournalapp_sc.model.Data
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.FoodHistory
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.History
@@ -11,13 +12,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class DetailFoodViewModel (application: Application): AndroidViewModel(application), CoroutineScope {
     private val job = Job()
     val foodLD = MutableLiveData<Food>()
-    var totalCalory = MutableLiveData<Int>()
-    var angka1 = 0;
+    var totalCalory = MutableLiveData<Data>()
+    var angka1 = MutableLiveData<Int>()
+    val totalFoodsCalories = MutableLiveData<Int>()
 
     fun addFood(list:List<Food>) {
         launch {
@@ -40,23 +44,25 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
         }
     }
 
-    fun selectTotalCalory(date:String) {
+    fun selectTotalCalory() {
         launch {
             val db = buildDb(getApplication())
-            totalCalory.value = db.historyDao().selecttotalCalory(date)
+            val sdf = SimpleDateFormat("dd MMMM yyyy")
+            val currentDate = sdf.format(Date())
+            //val masuk = "%$date%"
+            totalCalory.value?.data1 = db.historyDao().selecttotalCalory(currentDate)
         }
     }
 
-    fun cekHistorybd(date:String) {
+    fun cekHistory(){
+
         launch {
             val db = buildDb(getApplication())
-            angka1 = db.historyDao().selectJumlahHistory(date)
+            val sdf = SimpleDateFormat("dd MMMM yyyy")
+            val currentDate = sdf.format(Date())
+            val masuk = "%$currentDate%"
+            angka1.value = db.historyDao().selectJumlahHistory(currentDate)
         }
-    }
-
-    fun cekHistory(date:String) :Int {
-        cekHistorybd(date)
-        return angka1
     }
 
     fun fetch(uuid:Int)
@@ -71,6 +77,19 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
         launch{
             val db = buildDb(getApplication())
             db.historyDao().updatehistory(fooodCalory2,status2,date2)
+        }
+    }
+
+    fun totalCaloriesToday(date:String)
+    {
+        launch {
+            val db = buildDb(getApplication())
+            if(db.foodHistoryDao().selectTodayTotalCalories(date)==null){
+                totalFoodsCalories.value = 0
+            }
+            else{
+                totalFoodsCalories.value = db.foodHistoryDao().selectTodayTotalCalories(date)
+            }
         }
     }
 

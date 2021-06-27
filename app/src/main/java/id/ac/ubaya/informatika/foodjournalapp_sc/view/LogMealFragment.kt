@@ -45,38 +45,29 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
 
         val sdf = SimpleDateFormat("dd MMMM yyyy")
         val currentDate = sdf.format(Date())
-        val sdf1 = SimpleDateFormat("dd/MMMM/yyyy")
-        val currentDate1 = sdf1.format(Date())
         textViewFLTanggal.text = currentDate
 
-        viewModel.selectTotalCalory(currentDate1)
+        val sdf1 = SimpleDateFormat("yyyy-MM-dd")
+        val currentDate1 = sdf1.format(Date())
+
+        viewModel.selectTotalCalory()
+        viewModel.totalCaloriesToday(currentDate1)
         viewModel2.fetchCurrentUser()
+        viewModel.cekHistory()
 
         observeViewModel()
 
-       buttonFLLogNew.setOnClickListener {
-            Toast.makeText(this.context, "Food added3", Toast.LENGTH_SHORT).show()
-        }
-
     }
     private fun observeViewModel() {
-        viewModel.totalCalory.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            if(it == null)
-            {
-                dataBinding.sisa?.data1 = 0
-                calory = 0
-            }
-            else
-            {
-                dataBinding.sisa?.data1 = it
-                calory = it
-            }
+        viewModel.totalFoodsCalories.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+             dataBinding.sisa= it
         })
 
         viewModel2.userLD.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             dataBinding.user = it
             goals = it.caloriesTarget
         })
+
 
     }
 
@@ -86,64 +77,68 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
 
     @SuppressLint("SimpleDateFormat")
     override fun onButtonAddMealClick(v: View) {
-        val sdf = SimpleDateFormat("dd/MMMM/yyyy")
-        val currentDate = sdf.format(Date())
-        var makanan = FoodHistory(txtFLName.text.toString(), txtFLKalori.text.toString().toInt(),currentDate)
-        val list = listOf(makanan)
-        viewModel.addFoodHistory(list)
+        if (txtFLKalori.text.toString() != "0" && txtFLName.text.toString() != "") {
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = sdf.format(Date())
 
-        if(checkBoxFLSimpan.isChecked)
-        {
-            var makanan2 = Food(txtFLName.text.toString(),txtFLKalori.text.toString())
-            val list2 = listOf(makanan2)
-            viewModel.addFood(list2)
+            val sdf1 = SimpleDateFormat("dd MMMM yyyy")
+            val currentDate1 = sdf1.format(Date())
+
+            var makanan = FoodHistory(txtFLName.text.toString(), txtFLKalori.text.toString().toInt(), currentDate)
+            val list = listOf(makanan)
+            viewModel.addFoodHistory(list)
+
+            if (checkBoxFLSimpan.isChecked) {
+                var makanan2 = Food(txtFLName.text.toString(), txtFLKalori.text.toString())
+                val list2 = listOf(makanan2)
+                viewModel.addFood(list2)
+            }
+            var help1 = 2;
+            viewModel.cekHistory()
+            viewModel.angka1.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                help1 = it
+            })
+
+            Toast.makeText(v.context, "" + help1, Toast.LENGTH_SHORT).show()
+
+            if (help1 >= 1) {
+                var status = "";
+                if ((calory + txtFLKalori.text.toString().toInt()) >= dataBinding.user?.caloriesTarget!!) {
+                    status = "EXCEED"
+                } else if ((calory + txtFLKalori.text.toString().toInt()) >= 0.51 * dataBinding.user?.caloriesTarget!!) {
+                    status = "NORMAL"
+                } else {
+                    status = "LOW"
+                }
+
+                viewModel.updateHistory(txtFLKalori.text.toString().toInt(), status, currentDate1)
+            } else {
+                var status = "";
+                if ((calory + txtFLKalori.text.toString().toInt()) >= dataBinding.user?.caloriesTarget!!) {
+                    status = "EXCEED"
+                } else if ((calory + txtFLKalori.text.toString().toInt()) >= 0.51 * dataBinding.user?.caloriesTarget!!) {
+                    status = "NORMAL"
+                } else {
+                    status = "LOW"
+                }
+                val history = History(currentDate1, 1, txtFLKalori.text.toString().toInt(), status)
+                viewModel.addhistory(history)
+            }
+
+            Toast.makeText(v.context, "Food Log added", Toast.LENGTH_SHORT).show()
+            txtFLKalori.setText("")
+            txtFLName.setText("")
+            viewModel.selectTotalCalory()
+            viewModel.totalCaloriesToday(currentDate)
+            viewModel2.fetchCurrentUser()
+            observeViewModel()
+
+        }
+        else {
+            Toast.makeText(v.context, "Input Not Valid" , Toast.LENGTH_SHORT).show()
         }
 
-        if(viewModel.cekHistory(currentDate) >=1 )
-        {
-            var status = "";
-            if((calory+txtFLKalori.text.toString().toInt()) >= goals)
-            {
-                status = "EXCEED"
-            }
-            else if((calory+txtFLKalori.text.toString().toInt()) >= 0.51*goals)
-            {
-                status = "NORMAL"
-            }
-            else
-            {
-                status = "LOW"
-            }
-
-            viewModel.updateHistory(txtFLKalori.text.toString().toInt(), status, currentDate)
-        }
-        else
-        {
-            var status = "";
-            if((calory+txtFLKalori.text.toString().toInt()) >= goals)
-            {
-                status = "EXCEED"
-            }
-            else if((calory+txtFLKalori.text.toString().toInt()) >= 0.51*goals)
-            {
-                status = "NORMAL"
-            }
-            else
-            {
-                status = "LOW"
-            }
-            val history = History(currentDate,1,txtFLKalori.text.toString().toInt(),status)
-            viewModel.addhistory(history)
-        }
-
-        Toast.makeText(v.context, "Food Log added", Toast.LENGTH_SHORT).show()
-
-        //Back to previous fragment
-        val action = LogMealFragmentDirections.actionLogMealToFoodLog()
-        Navigation.findNavController(v).navigate(action)
     }
-
-
 }
 
 

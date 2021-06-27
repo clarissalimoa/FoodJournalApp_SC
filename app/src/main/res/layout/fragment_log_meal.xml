@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="sisa"
-            type="id.ac.ubaya.informatika.foodjournalapp_sc.model.Data" />
+        <variable name="sisa" type="Integer" />
         <variable
             name="user"
             type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
@@ -41,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="@{(user.caloriesTarget - sisa.data1) +`Cal`}"
+                android:text="@{user.caloriesTarget - sisa +` Cal`}"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"

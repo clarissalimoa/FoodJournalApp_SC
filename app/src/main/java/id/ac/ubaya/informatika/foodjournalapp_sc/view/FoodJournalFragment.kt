@@ -52,4 +52,10 @@ class FoodJournalFragment : Fragment() {
             textViewFJBulan.text =  currentDate
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshFoodHistory()
+        observeViewModel()
+    }
 }

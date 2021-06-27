@@ -70,5 +70,5 @@ data class History(
 }
 
 data class Data(
-        var data1:Int,
+        var data1:Int
 )
