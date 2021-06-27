@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import id.ac.ubaya.informatika.foodjournalapp_sc.R
 import id.ac.ubaya.informatika.foodjournalapp_sc.databinding.SavedFoodListItemBinding
 import id.ac.ubaya.informatika.foodjournalapp_sc.model.Food
+import id.ac.ubaya.informatika.foodjournalapp_sc.model.FoodHistory
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailFoodViewModel
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.ListFoodViewModel
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChooseFoodListAdapter(val foodList:ArrayList<Food>, val adapterOnClick : (Any) -> Unit, val owner: ViewModelStoreOwner) : RecyclerView.Adapter<ChooseFoodListAdapter.FoodViewHolder>()
         ,DeleteSavedFoodListener, ChooseSavedFoodListener{
@@ -75,8 +79,10 @@ class ChooseFoodListAdapter(val foodList:ArrayList<Food>, val adapterOnClick : (
         builder.setMessage(food.name+" - "+food.calories+" cal")
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            viewModel.addFood(listOf(food))
-            Toast.makeText(v.context,"Food added", Toast.LENGTH_SHORT).show()
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val currentDate = sdf.format(Date())
+            viewModel.addFoodHistory(listOf(FoodHistory(food.name, food.calories.toInt(), currentDate)))
+            Toast.makeText(v.context,"Food Log added", Toast.LENGTH_SHORT).show()
             val action = ChooseFoodFragmentDirections.actionChooseFoodToLogMeal()
             Navigation.findNavController(v).navigate(action)
         }

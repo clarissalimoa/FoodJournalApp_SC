@@ -61,6 +61,10 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
             val action = LogMealFragmentDirections.actionLogMealToChooseFood()
             Navigation.findNavController(it).navigate(action)
         }
+        btBackFoodLog.setOnClickListener{
+            val action = LogMealFragmentDirections.actionLogMealToFoodLog()
+            Navigation.findNavController(it).navigate(action)
+        }
 
     }
     private fun observeViewModel() {

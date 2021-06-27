@@ -21,6 +21,9 @@
         <action
             android:id="@+id/actionLogMealToChooseFood"
             app:destination="@id/chooseFoodFragment" />
+        <action
+            android:id="@+id/actionLogMealToFoodLog"
+            app:destination="@id/itemFoodLog" />
     </fragment>
     <fragment
         android:id="@+id/itemReport"
