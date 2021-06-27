@@ -44,15 +44,6 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
 
         dataBinding.listener = this
 
-
-//        radioGroupGoals.setOnCheckedChangeListener(
-//                RadioGroup.OnCheckedChangeListener{ group, checkedId ->
-//                    val radio: RadioButton = findViewById(checkedId)
-//                    Toast.makeText(applicationContext," On checked change : ${radio.tag}",
-//                            Toast.LENGTH_SHORT).show()
-//                })
-
-
     }
 
 
@@ -80,8 +71,8 @@ class WelcomeActivity : AppCompatActivity(),UserSaveWelcomeChangesListener {
         else if(radio.tag=="lose") (bmr*85/100).roundToInt()
         else 0
 
-        var user = User(txtName.text.toString(), age, txtGender.text.toString(),
-                txtHeight.text.toString().toInt(), txtWeight.text.toString().toInt(),
+        var user = User(name, age, txtGender.text.toString(),
+                height.toInt(), weight.toInt(),
                 radio.getTag().toString(), bmr, target)
         val list = listOf(user)
         viewModel.addUser(list)

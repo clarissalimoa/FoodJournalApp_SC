@@ -10,6 +10,7 @@
         <variable name="statToday" type="String" />
         <variable name="dateToday" type="String" />
         <variable name="progressLog" type="Integer" />
+        <variable name="fabListener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.FabLogAMealClickListener" />
     </data>
 
     <FrameLayout
@@ -257,6 +258,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
             android:clickable="true"
+            android:onClick="@{(view)->fabListener.onFabLogAMealClicked(view)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />

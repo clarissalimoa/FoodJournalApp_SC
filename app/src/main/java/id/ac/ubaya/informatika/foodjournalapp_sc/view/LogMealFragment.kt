@@ -57,6 +57,11 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
 
         observeViewModel()
 
+        buttonFLList.setOnClickListener{
+            val action = LogMealFragmentDirections.actionLogMealToChooseFood()
+            Navigation.findNavController(it).navigate(action)
+        }
+
     }
     private fun observeViewModel() {
         viewModel.totalFoodsCalories.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -99,7 +104,7 @@ class LogMealFragment : Fragment() , ButtonAddMealClick {
                 help1 = it
             })
 
-            Toast.makeText(v.context, "" + help1, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(v.context, "" + help1, Toast.LENGTH_SHORT).show()
 
             if (help1 >= 1) {
                 var status = "";

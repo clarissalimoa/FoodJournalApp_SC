@@ -72,6 +72,15 @@ class DetailFoodViewModel (application: Application): AndroidViewModel(applicati
            foodLD.value = db.foodDao().selectFood(uuid)
         }
     }
+
+    fun delete(food:Food)
+    {
+        launch{
+            val db = buildDb(getApplication())
+            db.foodDao().delete(food)
+        }
+    }
+
     fun updateHistory(fooodCalory2:Int, status2 :String, date2:String)
     {
         launch{

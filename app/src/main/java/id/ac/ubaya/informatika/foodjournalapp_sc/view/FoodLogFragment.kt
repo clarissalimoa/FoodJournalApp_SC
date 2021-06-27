@@ -20,14 +20,13 @@ import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.DetailUserViewModel
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.ListFoodHistoryViewModel
 import id.ac.ubaya.informatika.foodjournalapp_sc.viewmodel.ListFoodViewModel
 import kotlinx.android.synthetic.main.fragment_food_log.*
-import kotlinx.android.synthetic.main.fragment_log_meal.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 
-class FoodLogFragment : Fragment() {
+class FoodLogFragment : Fragment(), FabLogAMealClickListener {
     private lateinit var viewModel: DetailUserViewModel
     private lateinit var viewModelHistory: ListFoodHistoryViewModel
     private lateinit var dataBinding: FragmentFoodLogBinding
@@ -60,45 +59,44 @@ class FoodLogFragment : Fragment() {
         viewModelHistory.todayList(currentDateSqlFormat)
         viewModelHistory.totalCaloriesToday(currentDateSqlFormat)
 
+        dataBinding.fabListener = this
         dataBinding.dateToday = currentDate
         observeViewModel(view)
+
 
     }
 
     fun observeViewModel(v:View) {
         viewModel.userLD.observe(viewLifecycleOwner, Observer {
-//            Toast.makeText(v.context, "User Logs: "+it.toString(), Toast.LENGTH_SHORT).show()
-
             dataBinding.user = it
             calTarget=it.caloriesTarget
 
-            floatingActionButton.setOnClickListener {
-                val action = FoodLogFragmentDirections.actionItemFoodLogToItemLogAMeal()
-                Navigation.findNavController(it).navigate(action)
-            }
+            viewModelHistory.totalFoodsCalories.observe(viewLifecycleOwner, Observer{
+                //Total dari foodlog hari ini
+                val calToday = it
+                dataBinding.caloriesToday = (calToday).toString()
+                dataBinding.statToday = if(calToday <= 0.5*calTarget) "LOW"
+                else if(calToday > 0.5*calTarget && calToday <= calTarget) "NORMAL"
+                else "EXCEED"
+
+                dataBinding.progressLog = if(calToday==0) 0
+                else if(calToday>0 && calToday*100/calTarget<=100) calToday*100/calTarget
+                else 100
+            })
         })
 
         viewModelHistory.foodsLD.observe(viewLifecycleOwner, Observer{
-//            Toast.makeText(v.context, "Food Logs: "+it.toString(), Toast.LENGTH_SHORT).show()
             foodLogListAdapter.updateFoodHistoryList(it)
         })
 
-        viewModelHistory.totalFoodsCalories.observe(viewLifecycleOwner, Observer{
-//            Toast.makeText(v.context, "totalFoodsCalories: "+it.toString(), Toast.LENGTH_SHORT).show()
-            //Total dari foodlog hari ini
-            val calToday = it
-            dataBinding.caloriesToday = (calToday).toString()
-            dataBinding.statToday = if(calToday <= 0.5*calTarget) "LOW"
-            else if(calToday > 0.5*calTarget && calToday <= calTarget) "NORMAL"
-            else "EXCEED"
 
-            dataBinding.progressLog = if(calToday==0) 0
-            else if(calToday>0 && calToday*100/calTarget<=100) calToday*100/calTarget
-            else 100
-//            Toast.makeText(v.context, "progress: "+(calToday*100/calTarget).toString(), Toast.LENGTH_SHORT).show()
-        })
     }
 
+    override fun onFabLogAMealClicked(v: View) {
+//        Toast.makeText(v.context, "Fab clicked!", Toast.LENGTH_LONG).show()
+        val action = FoodLogFragmentDirections.actionItemFoodLogToItemLogAMeal()
+        Navigation.findNavController(v).navigate(action)
+    }
 
 
 }

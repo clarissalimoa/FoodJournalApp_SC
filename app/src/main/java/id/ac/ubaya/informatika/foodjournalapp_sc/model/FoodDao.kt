@@ -12,4 +12,7 @@ interface FoodDao {
 
     @Query("SELECT * FROM food WHERE id= :id")
     suspend fun selectFood(id:Int): Food
+
+    @Delete
+    suspend fun delete(food:Food)
 }

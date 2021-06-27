@@ -21,3 +21,16 @@ interface ButtoneditUserClick{
 interface RadioClick {
     fun onRadioClick(v:View, goal:String, obj:User)
 }
+
+interface FabLogAMealClickListener{
+    fun onFabLogAMealClicked(v:View)
+}
+
+
+interface DeleteSavedFoodListener{
+    fun onDeleteSavedFoodClicked(v:View, food:Food)
+}
+
+interface ChooseSavedFoodListener{
+    fun onChooseSaveFoodClicked(v:View, food:Food)
+}

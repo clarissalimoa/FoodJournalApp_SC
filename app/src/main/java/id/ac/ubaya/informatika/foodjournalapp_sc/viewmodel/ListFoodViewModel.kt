@@ -16,7 +16,7 @@ import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class ListFoodViewModel (application: Application) : AndroidViewModel(application), CoroutineScope {
-    val foodLD = MutableLiveData<List<Food>>()
+    val foodsLD = MutableLiveData<List<Food>>()
     val HistoryLD = MutableLiveData<List<History>>()
 
     private var job = Job()
@@ -26,10 +26,9 @@ class ListFoodViewModel (application: Application) : AndroidViewModel(applicatio
 
     fun refreshFood()
     {
-
         launch {
             val db = buildDb(getApplication())
-            foodLD.value = db.foodDao().selectAllFood()
+            foodsLD.value = db.foodDao().selectAllFood()
         }
     }
 

@@ -11,6 +11,7 @@
             name="user"
             type="id.ac.ubaya.informatika.foodjournalapp_sc.model.User" />
         <variable name="radioListener" type="id.ac.ubaya.informatika.foodjournalapp_sc.view.RadioClick" />
+        <variable name="dateToday" type="String" />
 
     </data>
     <FrameLayout
@@ -29,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/karla_bold"
-                android:text="Use Profile"
+                android:text="User's Profile"
                 android:textSize="36sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -96,7 +97,8 @@
                             android:id="@+id/txtHeight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:text="@{user.height+``}"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:text="@{user.weight}"
+                            android:text="@{user.weight+``}"
                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -137,14 +139,14 @@
                         app:layout_constraintEnd_toStartOf="@+id/guideline6"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                        app:suffixText="Age">
+                        app:suffixText="years">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txtAge"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:text="@{user.age}"/>
+                            android:text="@{user.age+``}"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -160,8 +162,7 @@
                         app:hintAnimationEnabled="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:suffixText="Name">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txtName"
@@ -204,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:tag="maintain"
                             android:onClick="@{(view)->radioListener.onRadioClick(view,`maintain`,user)}"
-                            android:checked="@{user.goal==`maintain`?true:false}"
+                            android:checked="@{user.goal.equals(`maintain`)?true:false}"
                             android:text="Maintain Weight" />
 
                         <RadioButton
@@ -213,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:tag="gain"
                             android:onClick="@{(view)->radioListener.onRadioClick(view,`gain`,user)}"
-                            android:checked="@{user.goal==`gain`?true:false}"
+                            android:checked="@{user.goal.equals(`gain`)?true:false}"
                             android:text="Gain Weight" />
 
                         <RadioButton
@@ -222,7 +223,7 @@
                             android:layout_height="wrap_content"
                             android:tag="lose"
                             android:onClick="@{(view)->radioListener.onRadioClick(view,`lose`,user)}"
-                            android:checked="@{user.goal==`lose`?true:false}"
+                            android:checked="@{user.goal.equals(`lose`)?true:false}"
                             android:text="Lose Weight" />
                     </RadioGroup>
 
@@ -236,7 +237,7 @@
                         android:layout_marginBottom="24dp"
                         android:background="@color/secondaryDarkColor"
                         android:backgroundTint="@color/secondaryDarkColor"
-                        android:text="Start the journey!"
+                        android:text="Save Changes"
                         android:onClick="@{(view)->listener.onButtonEditUserClick(view, user)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

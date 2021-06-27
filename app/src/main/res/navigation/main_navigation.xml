@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/ItemLogAMeal"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.LogMealFragment"
-        android:label="Log A Meal" />
+        android:label="Log A Meal" >
+        <action
+            android:id="@+id/actionLogMealToChooseFood"
+            app:destination="@id/chooseFoodFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemReport"
         android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.FoodJournalFragment"
@@ -28,6 +32,19 @@
         android:label="Food Log" >
         <action
             android:id="@+id/action_itemFoodLog_to_ItemLogAMeal"
+            app:destination="@id/ItemLogAMeal" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemProfile"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.ProfileFragment"
+        android:label="Profile" />
+    <fragment
+        android:id="@+id/chooseFoodFragment"
+        android:name="id.ac.ubaya.informatika.foodjournalapp_sc.view.ChooseFoodFragment"
+        android:label="fragment_choose_food"
+        tools:layout="@layout/fragment_choose_food" >
+        <action
+            android:id="@+id/actionChooseFoodToLogMeal"
             app:destination="@id/ItemLogAMeal" />
     </fragment>
 </navigation>
